@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Natascha Haberl">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Commission</title>
+</head>
+
+<body>
+    <div>
+        <p id="display"></p>
+    </div>
+    <script>
+        //instantiating needed variables at the top of program
+        let user, value, decimalValue, subtotal = 0, commission;
+
+        //instantiating a currency object so all currency displayed in html will have correct formatting
+        let USDollar = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+
+        //gathering the user's name and making sure it isn't empty
+        user = prompt(`Please enter your name: `)
+        while (user === null || user.length === 0) {
+            user = prompt(`Please enter your name`)
+        }
+
+        //posttest loop so that user can enter values until sentinel value is entered
+        do {
+            value = prompt(`Hi ${user}, Please enter the dollar amount of your sales a single sale at a time. Enter Done when you are finished`);
+
+            //validation loop to ensure value entered isn't empty or null(if user hits cancel button)
+            while (value === null || value.length === 0) {
+                value = prompt('Please enter a value or "Done" if you are finished entering sales numbers.')
+            }
+
+            //converting input from string to decimal UNLESS the sentinel text value is entered
+            if (value.toUpperCase() !== "DONE") {
+                decimalValue = parseFloat(value);
+                subtotal += decimalValue;
+                console.log(subtotal)
+            }
+        } while (value.toUpperCase() !== "DONE");
+
+        //switch statement to determine commission rate
+        switch (true) {
+            case subtotal > 1000:
+                commission = .15
+                break;
+            case subtotal > 500:
+                commission = .1
+                break;
+            case subtotal >= 0.01:
+                commission = .05
+                break;
+            default:
+                commission = 0
+                break;
+        }
+
+        //displaying information via one output statement
+        document.getElementById("display").innerHTML = `<b>Hello ${user}, Here is your Weekly Commission Report.</b><br><br>
+        Your sales total is ${USDollar.format(subtotal)}, so your commission rate is ${(commission * 100).toFixed(2)}%
+        <br>Your total commission is ${USDollar.format(commission * subtotal)}
+        <br>Your total earnings are ${USDollar.format((commission * subtotal) + subtotal)}`
+    </script>
+</body>
+
+</html>

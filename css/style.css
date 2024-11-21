@@ -1,0 +1,16 @@
+body{
+    padding: 25px;
+    font-family: sans-serif;
+    background-color: #383b51;
+    color: #d2e2d4;
+}
+
+div {
+    margin: auto;
+    padding: 15px;
+    width: 45%;
+    text-align: left;
+    border: #9c9baa solid 3px;
+    border-radius: 10px;
+    background-color: #606275;
+}
